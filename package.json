@@ -1,0 +1,29 @@
+{
+  "name": "@hyperdivision/czz",
+  "version": "0.0.0",
+  "description": "ZZZ CSS",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "standard": "^16.0.3",
+    "tape": "^5.0.1"
+  },
+  "scripts": {
+    "pretest": "standard",
+    "test": "tape test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyperdivision/czz.git"
+  },
+  "keywords": [],
+  "author": "Emil Bay <github@tixz.dk>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hyperdivision/czz/issues"
+  },
+  "homepage": "https://github.com/hyperdivision/czz#readme"
+}
