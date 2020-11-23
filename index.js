@@ -38,7 +38,7 @@ function czzx (parent = null, isGlobal = false, [str]) {
 
   // Create composition function
   const fn = czzx.bind(null, className, isGlobal)
-  fn.toString = () => '.' + className
+  fn.toString = () => className
   fn.className = className
   fn.css = css
 

@@ -105,8 +105,8 @@ See below API for the function returned.
 #### ``const composed = styles`...css...` ``
 Compose with new rules, meaning you can "inherit" namespaced rules.
 
-#### `const classNameWithDot = styles.toString()`
-Returns the generated class name including `.` (as used by HTML)
+#### `const className = styles.toString()`
+Returns the generated class name without `.` (as used by `elm.classList`)
 
 #### `const className = styles.className`
 Class name without `.` (as used by `elm.classList`)
