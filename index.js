@@ -15,7 +15,16 @@ const transforms = [
 const cache = new Map()
 
 //
-function czzx (parent = null, isGlobal = false, [str]) {
+function czzx (parent = null, isGlobal = false, [str] = []) {
+  // Noop
+  if (str === '' || str == null) {
+    const fn = czzx.bind(null, parent, isGlobal)
+    fn.toString = () => parent
+    fn.className = parent
+    fn.css = ''
+    return fn
+  }
+
   let css
   let className
 
@@ -44,6 +53,9 @@ function czzx (parent = null, isGlobal = false, [str]) {
 
   return fn
 }
+czzx.toString = () => ''
+czzx.css = ''
+czzx.className = ''
 
 const czz = czzx.bind(null, null, false)
 
