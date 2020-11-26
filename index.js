@@ -12,50 +12,86 @@ const transforms = [
  * rules over and over again
  * @type {Map.<string, { className: string, css: string }>
  */
-const cache = new Map()
+class Cache {
+  constructor () {
+    this.selectors = new Map()
+  }
+
+  has (selector, css) {
+    const _css = this.selectors.get(selector)
+    if (_css) return _css.has(css)
+
+    return false
+  }
+
+  get (selector, css) {
+    const _css = this.selectors.get(selector)
+    if (_css) return _css.get(css)
+
+    return null
+  }
+
+  set (selector, css, val) {
+    let _css = this.selectors.get(selector)
+    if (_css == null) {
+      _css = new Map()
+      this.selectors.set(selector, _css)
+    }
+
+    _css.set(css, val)
+    return this
+  }
+
+  clear () {
+    this.selectors = new Map()
+  }
+}
+const cache = new Cache()
 
 //
-function czzx (parent = null, isGlobal = false, [str] = []) {
+function czzx (parentSelector = null, isGlobal = false, [str] = []) {
   // Noop
   if (str === '' || str == null) {
-    const fn = czzx.bind(null, parent, isGlobal)
-    fn.toString = () => parent
-    fn.className = parent
+    const fn = czzx.bind(null, parentSelector, isGlobal)
+    fn.toString = () => parentSelector
+    fn.classList = parentSelector?.split('.').slice(1) ?? []
     fn.css = ''
     return fn
   }
 
   let css
-  let className
+  let selector
+  let classList
 
   // Check if we already cached this rule or need to tokenize and parse
-  if (cache.has(str)) {
-    ({ css, className } = cache.get(str))
+  if (cache.has(parentSelector, str)) {
+    ({ css, selector, classList } = cache.get(parentSelector, str))
   } else {
     const tokenizer = new CZZTokenizer(str)
-    const parser = new CZZParser(transforms, parent, isGlobal)
+    const parser = new CZZParser(transforms, parentSelector, isGlobal)
 
     parser.parse(tokenizer)
 
     css = parser.stringify()
-    className = parser.namespace
+    selector = parser.selector
+    classList = parentSelector?.split('.').slice(1) ?? []
 
     // Inject into <head> and cache
     inject(css)
-    cache.set(str, { css, className })
+    cache.set(parentSelector, str, { css, classList, selector })
   }
 
   // Create composition function
-  const fn = czzx.bind(null, className, isGlobal)
-  fn.toString = () => className
-  fn.className = className
+  const fn = czzx.bind(null, selector, isGlobal)
+  fn.toString = () => selector
+  fn.classList = classList
   fn.css = css
 
   return fn
 }
 czzx.toString = () => ''
 czzx.css = ''
-czzx.className = ''
+czzx.classList = []
 
 const czz = czzx.bind(null, null, false)
 

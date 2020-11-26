@@ -6,7 +6,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {},
+  "dependencies": {
+    "nanotron": "^4.0.2"
+  },
   "devDependencies": {
     "standard": "^16.0.3",
     "tape": "^5.0.1"

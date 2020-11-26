@@ -38,9 +38,11 @@ animation 1200ms {
 }
 `
 
+const s2 = styles`td underline`
+
 const elm = document.createElement('h1')
 
 elm.textContent = 'Hello world'
-elm.classList.add(styles.className)
+elm.classList.add(...s2.classList)
 
 document.body.append(elm)

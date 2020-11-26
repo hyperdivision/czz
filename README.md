@@ -105,11 +105,12 @@ See below API for the function returned.
 #### ``const composed = styles`...css...` ``
 Compose with new rules, meaning you can "inherit" namespaced rules.
 
-#### `const className = styles.toString()`
-Returns the generated class name without `.` (as used by `elm.classList`)
+#### `const selector = styles.toString()`
+Returns the generated selector
 
-#### `const className = styles.className`
-Class name without `.` (as used by `elm.classList`)
+#### `const classList = styles.classList`
+Array of class names that are composed together. Can be added with
+`elm.classList.add(...styles.classList)`
 
 #### `const css = styles.css`
 String containing the generated CSS
