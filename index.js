@@ -74,7 +74,7 @@ function czzx (parentSelector = null, isGlobal = false, [str] = []) {
 
     css = parser.stringify()
     selector = parser.selector
-    classList = parentSelector?.split('.').slice(1) ?? []
+    classList = selector.split('.').slice(1) ?? []
 
     // Inject into <head> and cache
     inject(css)
