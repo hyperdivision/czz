@@ -42,6 +42,8 @@ animation 1200ms {
 @media only screen and (max-width: 600px) {
   w 100%
 }
+
+bd 1px solid #999999
 `
 
 const s2 = styles`td underline`
