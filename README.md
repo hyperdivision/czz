@@ -19,6 +19,15 @@ width: 100px; // And you can define styles right here and they will be wrapped
  */
 h 100
 
+// Fully qualified rules are not expanded by the preprocessor (but units are)
+// ie. name, colon, value, semi-colon. Otherwise this rule would be interpreted
+// as "display" and not "d"
+d: path("M 10,30 \
+         A 20,20 0,0,1 50,30 \
+         A 20,20 0,0,1 90,30 \
+         Q 90,60 50,90 \
+         Q 10,60 10,30 z");
+
 // Substyles are automagically nested, ie this becomes '.RANDOM_CLASS .child'
 .child {
   // The & operator can be used to insert the parent selector, here yielding
@@ -89,7 +98,9 @@ CZZ composable styles. Suppots:
   - Multiple selectors are split, eg. `.child, :hover` -> `.parent .child, .parent:hover`
   - `&` marks parent selector placement, eg. `.foo &` -> `.foo .parent`
 * Shorthands through transforms, eg. `w 100` -> `width: 100px`
+* Skip shorthands with full css rule, eg. `d: ...` -> `d: ...` (noop)
 * Automatic unit insertion, eg. `w 100` -> `width: 100px` (notice `px`)
+
 * Multiline (`/* ... */`) and single-line (`// ...`) comments
 * Inline animations, eg. `animation 125ms ease { ...keyframes... }`
 * Inline media queries, which understand nesting
