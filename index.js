@@ -49,9 +49,9 @@ class Cache {
 const cache = new Cache()
 
 //
-function czzx (parentSelector = null, isGlobal = false, [str] = []) {
+function czzx (parentSelector = null, isGlobal = false, strs = [], ...inter) {
   // Noop
-  if (str === '' || str == null) {
+  if (strs == null || strs.length === 0 || (strs[0] === '' && inter.length === 0)) {
     const fn = czzx.bind(null, parentSelector, isGlobal)
     fn.toString = () => parentSelector
     fn.classList = parentSelector?.split('.').slice(1) ?? []
@@ -62,6 +62,12 @@ function czzx (parentSelector = null, isGlobal = false, [str] = []) {
   let css
   let selector
   let classList
+
+  let str = strs[0]
+  for (let i = 0; i < inter.length; i++) {
+    str += inter[i].toString()
+    str += strs[i + 1]
+  }
 
   // Check if we already cached this rule or need to tokenize and parse
   if (cache.has(parentSelector, str)) {
@@ -96,6 +102,11 @@ czzx.classList = []
 const czz = czzx.bind(null, null, false)
 
 czz.global = czzx.bind(null, null, true)
+czz.clear = () => {
+  cache.clear()
+  inject.clear()
+}
+
 czz.transforms = transforms
 
 module.exports = czz
