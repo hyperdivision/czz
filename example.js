@@ -49,6 +49,9 @@ bd 1px solid #999999
 const s2 = styles`td underline`
 
 const elm = document.createElement('h1')
+elm.onclick = () => {
+  console.log(CZZ.global`h1 { c red }`.css)
+}
 
 elm.textContent = 'Hello world'
 elm.classList.add(...s2.classList)
