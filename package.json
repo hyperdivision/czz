@@ -1,6 +1,6 @@
 {
   "name": "@hyperdivision/czz",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "ZZZ CSS",
   "main": "index.js",
   "publishConfig": {
