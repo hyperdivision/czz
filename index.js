@@ -54,7 +54,7 @@ function czzx (parentSelector = null, isGlobal = false, strs = [], ...inter) {
   if (strs == null || strs.length === 0 || (strs[0] === '' && inter.length === 0)) {
     const fn = czzx.bind(null, parentSelector, isGlobal)
     fn.toString = () => parentSelector
-    fn.classList = parentSelector?.split('.').slice(1) ?? []
+    fn.classList = (parentSelector && parentSelector.split('.').slice(1)) || []
     fn.css = ''
     return fn
   }
@@ -80,7 +80,7 @@ function czzx (parentSelector = null, isGlobal = false, strs = [], ...inter) {
 
     css = parser.stringify()
     selector = parser.selector
-    classList = selector.split('.').slice(1) ?? []
+    classList = selector.split('.').slice(1) || []
 
     // Inject into <head> and cache
     for (const rule of parser.values()) {
